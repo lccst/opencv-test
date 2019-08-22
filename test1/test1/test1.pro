@@ -8,7 +8,8 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    contentfinder.cpp
+    contentfinder.cpp \
+    morphofeatures.cpp
 
 
 
@@ -35,7 +36,8 @@ LIBS += -L/lccRoot/programs/opencv-3.4.0/lib/ \
 -lopencv_video
 
 HEADERS += \
-    contentfinder.h
+    contentfinder.h \
+    morphofeatures.h
 
 
 

@@ -115,7 +115,7 @@ cv::Mat Histogram1D::stretch(const cv::Mat &image, int minValue)
     return result;
 }
 
-
+/*
 
 int main()
 {
@@ -156,6 +156,71 @@ int main()
     int chnnls[3] = {0, 1, 2};
     cv::Mat result = finder.find(image, 60.0, 255.0, chnnls, 3);
     imshow("finder", result);
+
+    cv::waitKey(0);
+    return 0;
+}
+*/
+
+
+/*
+// get binary image
+int main()
+{
+    cv::Mat image = cv::imread("4.jpg", cv::IMREAD_GRAYSCALE);
+    std::cout<<image.channels()<<std::endl;
+
+    cv::imshow("image", image);
+
+    cv::Mat thded;
+    cv::threshold(image, thded, 60, 255, cv::THRESH_BINARY);
+    cv::imshow("thded", thded);
+
+
+    cv::waitKey(0);
+    return 0;
+}
+*/
+/*
+ // erode and dilate
+int main()
+{
+    cv::Mat image = cv::imread("binary.bmp");
+    std::cout<<image.channels()<<std::endl;
+    cv::imshow("image", image);
+
+    cv::Mat eroded;
+    cv::erode(image, eroded, cv::Mat());
+    cv::imshow("eroded", eroded);
+
+    cv::Mat dilated;
+    cv::dilate(image, dilated, cv::Mat());
+    cv::imshow("dilated", dilated);
+
+    cv::waitKey(0);
+    return 0;
+}
+*/
+
+#include "morphofeatures.h"
+int main()
+{
+    cv::Mat image = cv::imread("4.jpg");
+    cv::cvtColor(image, image, CV_BGR2GRAY);
+
+    std::cout<<image.channels()<<std::endl;
+    cv::imshow("image", image);
+
+    MorphoFeatures morpho;
+    morpho.setThreshold(50);
+
+//    cv::Mat edges = morpho.getEdges(image);
+//    cv::imshow("edge", edges);
+    cv::Mat corners = morpho.getCorners(image);
+    //cv::imshow("corners", corners);
+
+    morpho.drawOnImage(corners, image);
+    cv::imshow("cornered image", image);
 
     cv::waitKey(0);
     return 0;

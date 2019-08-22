@@ -49,9 +49,11 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../test1/main.cpp \
-		../test1/contentfinder.cpp 
+		../test1/contentfinder.cpp \
+		../test1/morphofeatures.cpp 
 OBJECTS       = main.o \
-		contentfinder.o
+		contentfinder.o \
+		morphofeatures.o
 DIST          = /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -106,8 +108,10 @@ DIST          = /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/lex.prf \
-		../test1/test1.pro ../test1/contentfinder.h ../test1/main.cpp \
-		../test1/contentfinder.cpp
+		../test1/test1.pro ../test1/contentfinder.h \
+		../test1/morphofeatures.h ../test1/main.cpp \
+		../test1/contentfinder.cpp \
+		../test1/morphofeatures.cpp
 QMAKE_TARGET  = test1
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = test1
@@ -265,8 +269,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../test1/contentfinder.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../test1/main.cpp ../test1/contentfinder.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../test1/contentfinder.h ../test1/morphofeatures.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../test1/main.cpp ../test1/contentfinder.cpp ../test1/morphofeatures.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -427,7 +431,9 @@ main.o: ../test1/main.cpp /lccRoot/programs/opencv-3.4.0/include/opencv2/core/co
 		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/fast_marching_inl.hpp \
 		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/deblurring.hpp \
 		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/wobble_suppression.hpp \
-		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/ring_buffer.hpp
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/ring_buffer.hpp \
+		../test1/contentfinder.h \
+		../test1/morphofeatures.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../test1/main.cpp
 
 contentfinder.o: ../test1/contentfinder.cpp ../test1/contentfinder.h \
@@ -557,6 +563,135 @@ contentfinder.o: ../test1/contentfinder.cpp ../test1/contentfinder.h \
 		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/wobble_suppression.hpp \
 		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/ring_buffer.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o contentfinder.o ../test1/contentfinder.cpp
+
+morphofeatures.o: ../test1/morphofeatures.cpp ../test1/morphofeatures.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/highgui/highgui.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/highgui.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/cvdef.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/cvconfig.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/hal/interface.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/cv_cpu_dispatch.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/cv_cpu_helper.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/version.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/base.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/opencv_modules.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/cvstd.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/ptr.inl.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/neon_utils.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/vsx_utils.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/traits.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/matx.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/saturate.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/fast_math.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/types.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/mat.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/bufferpool.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/mat.inl.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/persistence.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/operations.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/cvstd.inl.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/utility.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/core_c.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/types_c.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/optim.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/ovx.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/imgcodecs.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videoio.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/highgui/highgui_c.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/imgproc/imgproc_c.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/imgproc/types_c.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/imgcodecs/imgcodecs_c.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videoio/videoio_c.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/opencv.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/calib3d.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/features2d.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/miniflann.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/defines.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/config.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/affine.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/calib3d/calib3d_c.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/flann_base.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/general.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/matrix.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/params.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/any.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/saving.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/nn_index.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/result_set.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/all_indices.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/kdtree_index.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/dynamic_bitset.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/dist.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/heap.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/allocator.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/random.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/kdtree_single_index.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/kmeans_index.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/logger.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/composite_index.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/linear_index.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/hierarchical_clustering_index.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/lsh_index.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/lsh_table.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/autotuned_index.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/ground_truth.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/index_testing.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/timer.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/flann/sampling.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/imgproc.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/ml.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/ml/ml.inl.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/objdetect.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/objdetect/detection_based_tracker.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/objdetect/objdetect_c.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/photo.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/photo/photo_c.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/shape.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/shape/emdL1.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/shape/shape_transformer.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/shape/hist_cost.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/shape/shape_distance.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/stitching.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/stitching/warpers.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/stitching/detail/warpers.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/cuda.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/cuda_types.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/cuda.inl.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/stitching/detail/warpers_inl.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/stitching/detail/matchers.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/stitching/detail/motion_estimators.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/stitching/detail/util.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/stitching/detail/util_inl.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/stitching/detail/camera.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/stitching/detail/exposure_compensate.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/stitching/detail/seam_finders.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/stitching/detail/blenders.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/superres.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/superres/optical_flow.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/video.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/video/tracking.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/video/background_segm.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/video/tracking_c.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/stabilizer.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/global_motion.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/optical_flow.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/motion_core.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/outlier_rejection.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/motion_stabilizing.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/frame_source.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/log.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/inpainting.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/fast_marching.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/fast_marching_inl.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/deblurring.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/wobble_suppression.hpp \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/videostab/ring_buffer.hpp \
+		../test1/contentfinder.h \
+		/lccRoot/programs/opencv-3.4.0/include/opencv2/core/core.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o morphofeatures.o ../test1/morphofeatures.cpp
 
 ####### Install
 
