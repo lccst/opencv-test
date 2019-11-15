@@ -1,21 +1,18 @@
 QT += core
 QT -= gui
 
-TARGET = test1
+TARGET = test_matchTemplate
 CONFIG += console
 CONFIG -= app_bundle
 
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    contentfinder.cpp \
-    morphofeatures.cpp
+    matchtemplate.cpp
 
-
-
-INCLUDEPATH += /lccRoot/programs/opencv-3.4.0/include\
-                /lccRoot/programs/opencv-3.4.0/include/opencv\
-                /lccRoot/programs/opencv-3.4.0/include/opencv2
+INCLUDEPATH += /lccRoot/programs/x86_64/opencv-3.4.0/include\
+                /lccRoot/programs/x86_64/opencv-3.4.0/include/opencv\
+                /lccRoot/programs/x86_64/opencv-3.4.0/include/opencv2
 
 
 LIBS += -L/lccRoot/programs/opencv-3.4.0/lib/ \
@@ -37,7 +34,8 @@ LIBS += -L/lccRoot/programs/opencv-3.4.0/lib/ \
 
 HEADERS += \
     contentfinder.h \
-    morphofeatures.h
+    morphofeatures.h \
+    watershedsegmenter.h \
+    laplacianzc.h
 
-
-
+QMAKE_CFLAGS += -g
